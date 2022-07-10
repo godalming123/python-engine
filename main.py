@@ -7,16 +7,29 @@ class screen:
     def __init__ (self,width,height):
         self.width = width;
         self.height = height;
-        self.contents = list(itertools.repeat(("  " * width), height))
+
+        self.contents = []
+        for lineNo in range(height):
+            self.contents.append(addWhitespace(str(lineNo), 9) + " " + ("  " * width))
+
+        self.originalContents = list(self.contents)
+        self.headerText = "           "
+        for _ in range(0,self.width,4):# iterate through every 4th column
+                # then add the column header to the header text
+                self.headerText += addWhitespace(str(_),7) + " "
+
+    def clear(self):
+        self.contents = list(self.originalContents)
 
     def setPix(self,X,Y,newChar="█"):
       if 0 <= X < self.width and 0 <= Y < self.height: # If co-ordinates are within our screens hight and width
           # Then set the charecter on the co-ordinate should be updated
           X *= 2 # double the X becuase 2 chareters is one pixel
+          X += 10 # factor in that the list ahs line numbers on it
           #X = int(X)
           self.contents[Y] = self.contents[Y][0:X] + (newChar * 2) + self.contents[Y][X+2:] # update the pixel
       else:
-          raise ValueError("X and Y must be above or equal to zero and below the width/height of the screen")
+          raise ValueError("X(" + str(X) + ") and Y(" + str(Y) + ") must be above or equal to zero and below the width/height of the screen")
 
     def drawLine(self,Ax,Ay,Bx,By,lineChar="█"):
       incX = math.copysign(1,Bx-Ax)
@@ -48,18 +61,11 @@ class screen:
 
     def printMe(self):
         # = print column headers =
-        print("           ",end="")
-        for _ in range(0,self.width,4):# iterate through every 4th column
-                # then print the colummn header
-                print(addWhitespace(str(_),7) + " ", end="")
-
-        print()#create a newline
+        print(self.headerText)
         
         # = print rows =
-        lineNo = 0
         for line in self.contents:
-            print(addWhitespace(str(lineNo),10) + " " + line)
-            lineNo += 1
+            print(line)
 
 def addWhitespace(obj, minimumCharecters):
     objLen = len(obj)
@@ -73,28 +79,6 @@ def clearScreen():
     os.system("clear")
 
 if __name__ == "__main__":
-    startTime = time.time()
-
-    screen = screen(32,32)
-
-    #X = 0
-    #Y = 0
-
-    #while X < screen.width and Y < screen.height:
-    #    clearScreen()
-    #    screen.setPix(X,Y)
-    #    screen.printMe()
-    #    #time.sleep(0.4)
-
-    #    X += 1
-    #    Y += 1
-
-    screen.drawLine(0,0,16,20)
-    screen.drawLine(17,21,25,24,"*")
-    screen.drawLine(25,23,31,6)
-    screen.setPix(0,0)
-    screen.printMe()
-
-    print('took: ' + str(time.time() - startTime))
+    print("For a demo of this program please run one of the examples (in examples folder)")
 
 
