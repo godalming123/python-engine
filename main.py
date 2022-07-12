@@ -8,26 +8,26 @@ class screen:
         self.width = width;
         self.height = height;
 
-        self.contents = []
+        self.contents = ""
         for lineNo in range(height):
-            self.contents.append(addWhitespace(str(lineNo), 9) + " " + ("  " * width))
+            self.contents += (addWhitespace(str(lineNo), 9) + " " + ("  " * width)) + " \n"
 
-        self.originalContents = list(self.contents)
+        self.originalContents = str(self.contents)
         self.headerText = "           "
-        for _ in range(0,self.width,4):# iterate through every 4th column
+        for _ in range(0,self.width+1,4):# iterate through every 4th column
                 # then add the column header to the header text
                 self.headerText += addWhitespace(str(_),7) + " "
 
     def clear(self):
-        self.contents = list(self.originalContents)
+        self.contents = str(self.originalContents)
 
     def setPix(self,X,Y,newChar="█"):
       if 0 <= X < self.width and 0 <= Y < self.height: # If co-ordinates are within our screens hight and width
           # Then set the charecter on the co-ordinate should be updated
           X *= 2 # double the X becuase 2 chareters is one pixel
-          X += 10 # factor in that the list ahs line numbers on it
-          #X = int(X)
-          self.contents[Y] = self.contents[Y][0:X] + (newChar * 2) + self.contents[Y][X+2:] # update the pixel
+          X += 11
+          charToSet = (Y * ((self.width * 2) + 12)) + X
+          self.contents = self.contents[0:charToSet] + (newChar * 2) + self.contents[charToSet+2:] # update the pixel
       else:
           raise ValueError("X(" + str(X) + ") and Y(" + str(Y) + ") must be above or equal to zero and below the width/height of the screen")
 
@@ -60,12 +60,8 @@ class screen:
               err += incS
 
     def printMe(self):
-        # = print column headers =
         print(self.headerText)
-        
-        # = print rows =
-        for line in self.contents:
-            print(line)
+        print(self.contents)
 
 def addWhitespace(obj, minimumCharecters):
     objLen = len(obj)
