@@ -8,10 +8,10 @@ A simple python program that so far can only create 2D lines but it is quickly g
 2. Change directory
   `cd python-engine`
 2. Setup
-  ### Nix os
-  - install python temprarily: `nix-shell`
-  ### Other systems
-  Please install python by going to https://www.python.org/about/gettingstarted/
+  - Nix os
+    - install python temprarily: `nix-shell`
+  - Other systems
+    Please install python by going to https://www.python.org/about/gettingstarted/
 3. Run
   You can run any examples script (in examples directpry) from the python-engine directory or from the examples directory with `python3 ./examples/spinning-circle`
 4. Quit
