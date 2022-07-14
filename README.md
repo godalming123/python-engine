@@ -2,7 +2,7 @@
 
 A simple python program that so far can only create 2D lines but it is quickly growing with plans to add circles and 3D soon I also might rewrite it in go for speed (not that that is a problem yet) it draws to the terminal when run.
 
-## installing
+## Installing
 1. Git clone
   `git clone https://github.com/godlaming123/python-engine`
 2. Change directory
