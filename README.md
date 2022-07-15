@@ -1,6 +1,6 @@
 # python-engine
 
-A simple python program that so far can only create 2D lines but it is quickly growing with plans to add circles and 3D soon I also might rewrite it in go for speed (not that that is a problem yet) it draws to the terminal when run.
+A simple python program that so far can only create 2D lines but it is quickly growing with plans to add circles and 3D soon I also might rewrite it in go for speed (not that that is a problem yet) it draws to the terminal when ran.
 
 ## Installing
 1. **Git clone**
