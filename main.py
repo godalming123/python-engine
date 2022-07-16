@@ -1,12 +1,18 @@
-import itertools
 import os
-import time
 import math
 
+
+perspectiveModes = [
+        "oblique",
+        "isometric",
+        "pictoriol"
+]
+
 class screen:
-    def __init__ (self,width,height):
-        self.width = width;
-        self.height = height;
+    def __init__ (self,width,height,persepctiveSetting=perspectiveModes[0]):
+        self.width = width
+        self.height = height
+        self.perspectiveMode = persepctiveSetting
 
         self.contents = ""
         for lineNo in range(height):
@@ -20,16 +26,6 @@ class screen:
 
     def clear(self):
         self.contents = str(self.originalContents)
-
-    def setPix(self,X,Y,newChar="█"):
-      if 0 <= X < self.width and 0 <= Y < self.height: # If co-ordinates are within our screens hight and width
-          # Then set the charecter on the co-ordinate should be updated
-          X *= 2 # double the X becuase 2 chareters is one pixel
-          X += 11
-          charToSet = (Y * ((self.width * 2) + 12)) + X
-          self.contents = self.contents[0:charToSet] + (newChar * 2) + self.contents[charToSet+2:] # update the pixel
-      else:
-          raise ValueError("X(" + str(X) + ") and Y(" + str(Y) + ") must be above or equal to zero and below the width/height of the screen")
 
     def drawLine(self,Ax,Ay,Bx,By,lineChar="█"):
       incX = math.copysign(1,Bx-Ax)
@@ -58,6 +54,28 @@ class screen:
               err += incD
           else:
               err += incS
+
+    def setPix(self,X,Y,newChar="█",Z=0,hasPerspective=False):
+        if hasPerspective:
+            if self.perspectiveMode == perspectiveModes[0]: #oblique
+                X += Z
+                Y += Z
+            elif self.perspectiveMode == perspectiveModes[1]: # isometric
+                Y += X * 0.2
+                Y += Z
+                X += Z
+            else:
+                raise ValueError("perspectiveMode: " + self.perspectiveMode + " is not supported")
+
+        if 0 <= X < self.width and 0 <= Y < self.height: # If co-ordinates are within our screens hight and width
+          # Then set the charecter on the co-ordinate should be updated
+          X *= 2 # double the X becuase 2 chareters is one pixel
+          X += 11
+          charToSet = (Y * ((self.width * 2) + 12)) + X
+          self.contents = self.contents[0:charToSet] + (newChar * 2) + self.contents[charToSet+2:] # update the pixel
+        else:
+          raise ValueError("X(" + str(X) + ") and Y(" + str(Y) + ") must be above or equal to zero and below the width/height of the screen. This may have been caused by 3D rendering")
+
 
     def printMe(self):
         print(self.headerText)
