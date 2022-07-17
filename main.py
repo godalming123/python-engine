@@ -2,11 +2,14 @@ import os
 import math
 
 
+
+
 perspectiveModes = [
         "oblique",
         "isometric",
-        "pictoriol"
+        "pictorial"
 ]
+
 
 class screen:
     def __init__ (self,width,height,persepctiveSetting=perspectiveModes[0]):
@@ -27,7 +30,9 @@ class screen:
     def clear(self):
         self.contents = str(self.originalContents)
 
-    def drawLine(self,Ax,Ay,Bx,By,lineChar="█"):
+    def drawLine(self,Ax,Ay,Bx,By,lineChar="█",
+            #Az=0,Bz=0
+            ):
       incX = math.copysign(1,Bx-Ax)
       incY = math.copysign(1,By-Ay)
 
