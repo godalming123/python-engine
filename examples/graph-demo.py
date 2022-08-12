@@ -3,7 +3,7 @@ import time
 
 sys.path.append('../')# add previos directory to path
 sys.path.append('./')#add current directory to path
-from main import screen, clearScreen
+from main import screen
 
 startTime = time.time()
 

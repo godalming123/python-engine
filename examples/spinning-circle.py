@@ -19,7 +19,7 @@ while True:
 
     for x in range(screen.width-2):
         screen.drawLine(
-            x+1,           screen.height-1,
+            x+1,             screen.height-1,
             screen.width-x-1,0
         )
         screen.printMe()
